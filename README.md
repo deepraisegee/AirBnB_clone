@@ -1,5 +1,5 @@
 # Title
-** AirBnB clone project
+**AirBnB clone project**
 
 ## Description
 Line-oriented command interpreters for AirBnB clone project
