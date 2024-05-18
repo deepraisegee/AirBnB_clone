@@ -13,10 +13,14 @@ class BaseModel(object):
     and amethods for other classes.
     """
 
-    def __init__(self):
-        self.id = str(uuid.uuid4())
-        self.created_at = dt.now()
-        self.updated_at = dt.now()
+    def __init__(self, *args, **kwargs):
+        if kwargs:
+            kwargs.pop("__class__", "")
+            self.__dict__ = kwargs
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = dt.now()
+            self.updated_at = dt.now()
 
     def __str__(self):
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
