@@ -6,6 +6,8 @@ Decribes all the base model classes to be used for the program
 import uuid
 from datetime import datetime as dt
 
+from models import storage
+
 
 class BaseModel(object):
     """
@@ -37,3 +39,4 @@ class BaseModel(object):
         """save instance state"""
         # update the timestame for the instance modification
         self.updated_at = dt.now()
+        storage.save()
