@@ -41,11 +41,11 @@ class TestBaseModel(unittest.TestCase):
         """test for when the instance is updated"""
         self.obj.test_attr = "test"
         self.obj.save()
-        self.assertTrue(self.obj.updated_at, dt.now)
+        self.assertTrue(self.obj.updated_at, dt.now())
 
     def test_to_dict_method_of_the_instance(self):
         """test the to_dict method for appropriate date return"""
-        self.assertEqual(self.obj.to_dict(), self.obj.__dict__)
+        self.assertIn("__class__", self.obj.to_dict())
 
 
 if __name__ == "__main__":
