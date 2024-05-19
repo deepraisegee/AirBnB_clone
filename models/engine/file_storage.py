@@ -5,6 +5,8 @@ into file to keep the AirBnB data persistence.
 """
 import json
 
+from models.base_model import BaseModel
+
 
 class FileStorage(object):
     """
@@ -18,21 +20,26 @@ class FileStorage(object):
 
     def all(self):
         """get all the instances"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """create new instance"""
-        self.__objects[obj.__class__.__name__] = obj
+        obj_id = f"{obj.__class__.__name__}.{obj.id}"
+        FileStorage.__objects[obj_id] = obj.to_dict()
 
     def save(self):
         """save all the objects in the memory to file"""
-        with open(self.__file_path, "w") as f:
-            json.dump(self.__objects, f, indent=4)
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(FileStorage.__objects, f, indent=4)
 
     def reload(self):
         """load the data in the file to memory"""
         try:
-            with open(self.__file_path, "r") as f:
-                self.__objects = json.load(f)
+            with open(FileStorage.__file_path, "r") as f:
+                data = json.load(f)
+                FileStorage.__objects = {
+                    _id: eval(obj["__class__"])(**obj).to_dict()
+                    for _id, obj in data.items()
+                }
         except FileNotFoundError:
             pass
