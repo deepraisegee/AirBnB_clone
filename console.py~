@@ -44,22 +44,23 @@ class HBNBCommand(cmd.Cmd):
     def validate_args(arg):
         """A static method for validating input arguments"""
         args = arg.split(" ")
-        if not arg:
+        if not arg.strip():
             print("** class name missing **")
             return
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if args[0] not in models.CLASSES:
+        if len(args) == 2 and args[0] not in models.CLASSES:
             print("** class doesn't exist **")
             return
-        obj_id = f"{args[0]}.{args[1]}"
-        try:
-            models.storage.all()[obj_id]
-        except KeyError:
-            print("** no instance found **")
-        else:
-            return obj_id
+        if len(args) == 2:
+            obj_id = f"{args[0]}.{args[1]}"
+            try:
+                models.storage.all()[obj_id]
+            except KeyError:
+                print("** no instance found **")
+            else:
+                return obj_id
 
     def do_all(self, arg):
         """
@@ -67,10 +68,7 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             all <ClassName>
         """
-        if arg:
-            print(models.storage.filter(class_name=arg))
-            return
-        print(models.storage.filter())
+        print(models.storage.filter(arg))
 
     def do_create(self, arg):
         """
@@ -94,14 +92,6 @@ class HBNBCommand(cmd.Cmd):
         if obj_id is not None:
             print(models.storage.get(obj_id))
 
-    def do_update(self, arg):
-        """
-        Updates an instance based on the class name and id.
-        Usage:
-            update <ClassName> <instance_id> <attribute_name> <attribute_value>
-        """
-        pass
-
     def do_destroy(self, arg):
         """
         Deletes an instance based on the class name and id.
@@ -111,7 +101,6 @@ class HBNBCommand(cmd.Cmd):
         obj_id = HBNBCommand.validate_args(arg)
         if obj_id is not None:
             models.storage.delete(obj_id)
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

@@ -2,9 +2,16 @@
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
+
+storage = FileStorage()
+storage.reload()
+
+
 CLASSES = {
     "BaseModel": BaseModel
 }
 
-storage = FileStorage()
-storage.reload()
+
+__all__ = [
+    "FileStorage",
+]

@@ -43,3 +43,26 @@ class FileStorage(object):
                 }
         except FileNotFoundError:
             pass
+
+    def get(self, obj_id):
+        """get instance by its id"""
+        return FileStorage.__objects[obj_id]
+
+    def delete(self, obj_id):
+        """delete an instance from the file storage"""
+        FileStorage.__objects.pop(obj_id)
+        self.save()
+
+    def filter(self, class_name=None, *args, **kwargs):
+        """filter the storage based on params given"""
+        results = [
+            str(eval(obj["__class__"])(**obj))
+            for obj in FileStorage.__objects.values()
+        ]
+        if class_name is not None:
+            results = [
+                str(eval(obj["__class__"])(**obj))
+                for obj in FileStorage.__objects.values()
+                if class_name == obj["__class__"]
+            ]
+        return results
