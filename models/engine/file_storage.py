@@ -4,6 +4,7 @@ Module with interfaces for readind and writing
 into file to keep the AirBnB data persistence.
 """
 import json
+from datetime import datetime as dt
 
 from models.base_model import BaseModel
 
@@ -25,24 +26,27 @@ class FileStorage(object):
     def new(self, obj):
         """create new instance"""
         obj_id = f"{obj.__class__.__name__}.{obj.id}"
-        FileStorage.__objects[obj_id] = obj.to_dict()
+        FileStorage.__objects[obj_id] = obj
 
     def save(self):
         """save all the objects in the memory to file"""
+        data = FileStorage.__objects
+        new_data = {k: v.to_dict() for k, v in data.items()}
         with open(FileStorage.__file_path, "w") as f:
-            json.dump(FileStorage.__objects, f, indent=4)
+            json.dump(new_data, f, indent=4)
 
     def reload(self):
         """load the data in the file to memory"""
         try:
             with open(FileStorage.__file_path, "r") as f:
                 data = json.load(f)
-                FileStorage.__objects = {
-                    _id: eval(obj["__class__"])(**obj).to_dict()
-                    for _id, obj in data.items()
-                }
         except FileNotFoundError:
             pass
+        else:
+            FileStorage.__objects = {
+                    _id: eval(obj["__class__"])(**obj)
+                    for _id, obj in data.items()
+                }
 
     def get(self, obj_id):
         """get instance by its id"""
