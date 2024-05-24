@@ -100,7 +100,18 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             update <ClassName> <instance_id> <attribute_name> <attribute_value>
         """
-        pass
+        obj_id = HBNBCommand.validate_args(arg)
+        if not obj_id:
+            return
+        args = arg.split(" ")
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        attr, val = args[2], args[3]
+        models.storage.update(obj_id, attr, val)
 
     def do_destroy(self, arg):
         """

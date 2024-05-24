@@ -52,6 +52,11 @@ class FileStorage(object):
         """get instance by its id"""
         return FileStorage.__objects[obj_id]
 
+    def update(self, obj_id, attr, val):
+        """update an instance of `obj_id` with `data`"""
+        if attr not in ("id", "created_at", "updated_at"):
+            FileStorage.__objects[obj_id].__dict__[attr] = val
+
     def delete(self, obj_id):
         """delete an instance from the file storage"""
         FileStorage.__objects.pop(obj_id)
@@ -60,13 +65,11 @@ class FileStorage(object):
     def filter(self, class_name=None, *args, **kwargs):
         """filter the storage based on params given"""
         results = [
-            str(eval(obj["__class__"])(**obj))
-            for obj in FileStorage.__objects.values()
+            str(obj) for obj in FileStorage.__objects.values()
         ]
         if class_name is not None:
             results = [
-                str(eval(obj["__class__"])(**obj))
-                for obj in FileStorage.__objects.values()
-                if class_name == obj["__class__"]
+                str(obj) for obj in FileStorage.__objects.values()
+                if class_name == obj.__class__.__name__
             ]
         return results
