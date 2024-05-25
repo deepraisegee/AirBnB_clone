@@ -3,6 +3,7 @@
 Module with interfaces for readind and writing
 into file to keep the AirBnB data persistence.
 """
+import ast
 import json
 from datetime import datetime as dt
 
@@ -60,15 +61,15 @@ class FileStorage(object):
 
     def update(self, obj_id, *args, **kwargs):
         """update an instance of `obj_id` with `data`"""
-        print(args, kwargs)
-        if len(args) == 2:
-            attr, val = args
+        if kwargs:
+            attr = kwargs["attr"]
+            val = kwargs["val"]
             if attr not in ("id", "created_at", "updated_at"):
                 FileStorage.__objects[obj_id].__dict__[attr] = val
                 self.save()
-        if kwargs:
-            print(kwargs)
-            FileStorage.__objects[obj_id].__dict__.update(kwargs)
+        if args:
+            data = ast.literal_eval(args[0])
+            FileStorage.__objects[obj_id].__dict__.update(data)
             self.save()
         else:
             print("Error here")

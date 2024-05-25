@@ -76,6 +76,16 @@ class HBNBCommand(cmd.Cmd):
             params = [i.strip() for i in commands[1].split(", ")]
             class_name = commands[0]
             # let's do some validation here
+            if len(params) > 1:
+                obj_id = f"{commands[0]}.{params[0][8:-1]}"
+                try:
+                    models.storage.all()[obj_id]
+                except KeyError:
+                    print("** no instance found **")
+                    return
+            else:
+                print("** instance id missing **")
+                return
             if len(params[0].split("(")) < 2:
                 print("** instance id missing **")
                 return
@@ -85,16 +95,15 @@ class HBNBCommand(cmd.Cmd):
             if len(params) > 2 and params[1].startswith("{"):
                 try:
                     # parse the second argument to python dictionary
-                    obj_id = params[0][8:-1]
-                    data = commands[1][commands[1].index("{"):commands[1].index("}") + 1]
-                    models.storage.update(obj_id, **data)
+                    opt = commands[1]
+                    data = opt[opt.index("{"):opt.index("}") + 1]
+                    models.storage.update(obj_id, data)
                     return
                 except IndexError:
                     return
                 print("** value missing **")
                 return
             try:
-                obj_id = params[0][8:-1]
                 attr = params[1][1:-1]
                 val = params[2][1:-2]
                 self.do_update(" ".join([class_name, obj_id, attr, val]))
@@ -196,7 +205,7 @@ class HBNBCommand(cmd.Cmd):
         if not obj_id:
             return
         attr, val = args[2], args[3]
-        models.storage.update(obj_id, attr, val)
+        models.storage.update(obj_id, attr=attr, val=val)
 
     def do_destroy(self, arg):
         """
