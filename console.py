@@ -33,24 +33,45 @@ class HBNBCommand(cmd.Cmd):
             return super().default(line)
         if commands[1] == "all()":
             self.do_all(commands[0])
+            return
         if commands[1] == "count()":
             print(len(models.storage.filter(commands[0])))
             return
         if "show" in commands[1]:
+            # validate if id was passed
+            if len(commands[1][4:]) < 5:
+                # length of id will surely greater than 5
+                print("** instance id missing **")
+                return
+
             # slice out the instance id
             try:
                 obj_id = commands[1][6:-2]
                 self.do_show(" ".join([commands[0], obj_id]))
+                return
             except IndexError:
-                pass
+                return
         if "destroy" in commands[1]:
+            # validate if id was passed
+            if len(commands[1][7:]) < 5:
+                # length of id will surely greater than 5
+                print("** instance id missing **")
+                return
+
             # slice out the instance id
             try:
                 obj_id = commands[1][9:-2]
                 self.do_destroy(" ".join([commands[0], obj_id]))
+                return
             except IndexError:
-                pass
+                return
         if "update" in commands[1]:
+            # validate if id was passed
+            if len(commands[1][6:]) < 5:
+                # length of id will surely greater than 5
+                print("** instance id missing **")
+                return
+
             # slice out the instance id
             params = [i.strip() for i in commands[1].split(", ")]
             class_name = commands[0]
@@ -69,8 +90,9 @@ class HBNBCommand(cmd.Cmd):
                 attr = params[1][1:-1]
                 val = params[2][1:-2]
                 self.do_update(" ".join([class_name, obj_id, attr, val]))
+                return
             except IndexError:
-                pass
+                return
 
         return super().default(line)
 
