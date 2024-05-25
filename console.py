@@ -24,6 +24,56 @@ class HBNBCommand(cmd.Cmd):
         """Handle when the line is empty"""
         pass
 
+    def default(self, line):
+        """Handle unrecognized command"""
+        commands = [i.strip() for i in line.split(".")]
+        if len(commands) != 2:
+            return super().default(line)
+        if commands[0] not in models.CLASSES:
+            return super().default(line)
+        if commands[1] == "all()":
+            self.do_all(commands[0])
+        if commands[1] == "count()":
+            print(len(models.storage.filter(commands[0])))
+            return
+        if "show" in commands[1]:
+            # slice out the instance id
+            try:
+                obj_id = commands[1][6:-2]
+                self.do_show(" ".join([commands[0], obj_id]))
+            except IndexError:
+                pass
+        if "destroy" in commands[1]:
+            # slice out the instance id
+            try:
+                obj_id = commands[1][9:-2]
+                self.do_destroy(" ".join([commands[0], obj_id]))
+            except IndexError:
+                pass
+        if "update" in commands[1]:
+            # slice out the instance id
+            params = [i.strip() for i in commands[1].split(", ")]
+            class_name = commands[0]
+            # let's do some validation here
+            if len(params[0].split("(")) < 2:
+                print("** instance id missing **")
+                return
+            if len(params) == 1:
+                print("** attribute name missing **")
+                return
+            if len(params) == 2:
+                print("** value missing **")
+                return
+            try:
+                obj_id = params[0][8:-1]
+                attr = params[1][1:-1]
+                val = params[2][1:-2]
+                self.do_update(" ".join([class_name, obj_id, attr, val]))
+            except IndexError:
+                pass
+
+        return super().default(line)
+
     def do_EOF(self, arg):
         """Handle end of file"""
         return True
@@ -65,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
         """
         List all instances based or not on the class name.
         Usage:
-            all <ClassName>
+            all <ModelName>
         """
         if not HBNBCommand.validate_class_name(arg):
             return
@@ -103,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an instance based on the class name and id.
         Usage:
-            update <ClassName> <instance_id> <attribute_name> <attribute_value>
+            update <ModelName> <instance_id> <attribute_name> <attribute_value>
         """
         args = arg.split(" ")
         if len(args) == 2:
@@ -122,7 +172,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Deletes an instance based on the class name and id.
         Usage:
-            destroy <ClassName> <instance_id>
+            destroy <ModelName> <instance_id>
         """
         obj_id = HBNBCommand.validate_args(arg)
         if obj_id is not None:
