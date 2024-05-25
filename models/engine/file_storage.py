@@ -58,11 +58,20 @@ class FileStorage(object):
         """get instance by its id"""
         return FileStorage.__objects[obj_id]
 
-    def update(self, obj_id, attr, val):
+    def update(self, obj_id, *args, **kwargs):
         """update an instance of `obj_id` with `data`"""
-        if attr not in ("id", "created_at", "updated_at"):
-            FileStorage.__objects[obj_id].__dict__[attr] = val
+        print(args, kwargs)
+        if len(args) == 2:
+            attr, val = args
+            if attr not in ("id", "created_at", "updated_at"):
+                FileStorage.__objects[obj_id].__dict__[attr] = val
+                self.save()
+        if kwargs:
+            print(kwargs)
+            FileStorage.__objects[obj_id].__dict__.update(kwargs)
             self.save()
+        else:
+            print("Error here")
 
     def delete(self, obj_id):
         """delete an instance from the file storage"""

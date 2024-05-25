@@ -82,7 +82,15 @@ class HBNBCommand(cmd.Cmd):
             if len(params) == 1:
                 print("** attribute name missing **")
                 return
-            if len(params) == 2:
+            if len(params) > 2 and params[1].startswith("{"):
+                try:
+                    # parse the second argument to python dictionary
+                    obj_id = params[0][8:-1]
+                    data = commands[1][commands[1].index("{"):commands[1].index("}") + 1]
+                    models.storage.update(obj_id, **data)
+                    return
+                except IndexError:
+                    return
                 print("** value missing **")
                 return
             try:
