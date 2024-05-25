@@ -35,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
     @staticmethod
     def validate_class_name(arg):
         """A static method to validate only class name"""
-        if arg not in models.CLASSES:
+        if arg and arg.split(" ")[0] not in models.CLASSES:
             print("** class doesn't exist **")
             return False
         return True
@@ -67,6 +67,8 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             all <ClassName>
         """
+        if not HBNBCommand.validate_class_name(arg):
+            return
         if arg:
             print(models.storage.filter(class_name=arg))
             return
@@ -78,6 +80,9 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             create <ModelName>
         """
+        if not arg:
+            print("** class name missing **")
+            return
         if HBNBCommand.validate_class_name(arg):
             obj = models.CLASSES[arg]()
             obj.save()
@@ -100,15 +105,15 @@ class HBNBCommand(cmd.Cmd):
         Usage:
             update <ClassName> <instance_id> <attribute_name> <attribute_value>
         """
-        obj_id = HBNBCommand.validate_args(arg)
-        if not obj_id:
-            return
         args = arg.split(" ")
         if len(args) == 2:
             print("** attribute name missing **")
             return
         if len(args) == 3:
             print("** value missing **")
+            return
+        obj_id = HBNBCommand.validate_args(arg)
+        if not obj_id:
             return
         attr, val = args[2], args[3]
         models.storage.update(obj_id, attr, val)

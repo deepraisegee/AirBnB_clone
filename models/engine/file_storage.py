@@ -7,6 +7,7 @@ import json
 from datetime import datetime as dt
 
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage(object):
@@ -56,6 +57,7 @@ class FileStorage(object):
         """update an instance of `obj_id` with `data`"""
         if attr not in ("id", "created_at", "updated_at"):
             FileStorage.__objects[obj_id].__dict__[attr] = val
+            self.save()
 
     def delete(self, obj_id):
         """delete an instance from the file storage"""
