@@ -16,3 +16,6 @@ class TestConsole(unittest.TestCase):
         """test for `help` command on standard output"""
         with patch("sys.stdout", new=io.StringIO()) as f:
             HBNBCommand().onecmd("all")
+            HBNBCommand().onecmd("quit")
+            HBNBCommand().onecmd("EOF")
+            HBNBCommand().onecmd("help")
