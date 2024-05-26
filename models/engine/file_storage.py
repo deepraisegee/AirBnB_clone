@@ -67,12 +67,11 @@ class FileStorage(object):
             if attr not in ("id", "created_at", "updated_at"):
                 FileStorage.__objects[obj_id].__dict__[attr] = val
                 self.save()
+                return
         if args:
             data = ast.literal_eval(args[0])
             FileStorage.__objects[obj_id].__dict__.update(data)
             self.save()
-        else:
-            print("Error here")
 
     def delete(self, obj_id):
         """delete an instance from the file storage"""

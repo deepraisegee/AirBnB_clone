@@ -76,23 +76,23 @@ class HBNBCommand(cmd.Cmd):
             params = [i.strip() for i in commands[1].split(", ")]
             class_name = commands[0]
             # let's do some validation here
-            if len(params) > 1:
-                obj_id = f"{commands[0]}.{params[0][8:-1]}"
+            if params:
+                p = params
+                _id = p[0][8:-2] if len(p) == 1 else p[0][8:-1]
+                obj_id = f"{commands[0]}.{_id}"
                 try:
                     models.storage.all()[obj_id]
                 except KeyError:
+                    print("Error")
                     print("** no instance found **")
                     return
-            else:
-                print("** instance id missing **")
-                return
             if len(params[0].split("(")) < 2:
                 print("** instance id missing **")
                 return
             if len(params) == 1:
                 print("** attribute name missing **")
                 return
-            if len(params) > 2 and params[1].startswith("{"):
+            if len(params) > 1 and params[1].startswith("{"):
                 try:
                     # parse the second argument to python dictionary
                     opt = commands[1]
@@ -101,12 +101,14 @@ class HBNBCommand(cmd.Cmd):
                     return
                 except IndexError:
                     return
+            if len(params) == 2:
                 print("** value missing **")
                 return
             try:
-                attr = params[1][1:-1]
-                val = params[2][1:-2]
-                self.do_update(" ".join([class_name, obj_id, attr, val]))
+                p = params
+                attr = p[1][1:-1]
+                val = p[2][1:-2] if '"' in p[2] or "'" in p[2] else p[2][:-1]
+                self.do_update(" ".join([class_name, _id, attr, val]))
                 return
             except IndexError:
                 return

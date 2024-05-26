@@ -1,10 +1,23 @@
 {
-    "User.c0c788fa-c408-4cce-a538-e26f7aa83749": {
-        "id": "c0c788fa-c408-4cce-a538-e26f7aa83749",
-        "created_at": "2024-05-25T12:33:45.735904",
-        "updated_at": "2024-05-25T12:33:45.735962",
-        "first_name": "John",
-        "age": 89,
+    "User.246ad7c4-4e03-4340-a08a-368196c955cf": {
+        "id": "246ad7c4-4e03-4340-a08a-368196c955cf",
+        "created_at": "2024-05-26T01:22:19.428242",
+        "updated_at": "2024-05-26T01:22:19.428280",
+        "first_name": "Adesanmi",
+        "last_name": "PraiseGod",
+        "ola": 123,
+        "new": true,
+        "strange": 23,
+        "soft": true,
+        "hmm": "text",
+        "man": "woman",
+        "love": "asda",
         "__class__": "User"
+    },
+    "Place.c1045fd9-6753-4e69-b5fd-ca83699bfe95": {
+        "id": "c1045fd9-6753-4e69-b5fd-ca83699bfe95",
+        "created_at": "2024-05-26T01:22:49.742368",
+        "updated_at": "2024-05-26T01:22:49.742406",
+        "__class__": "Place"
     }
 }
