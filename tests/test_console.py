@@ -15,7 +15,7 @@ class TestConsole(unittest.TestCase):
     def test_all_command(self):
         """test for `help` command on standard output"""
         with patch("sys.stdout", new=io.StringIO()) as f:
-            HBNBCommand().onecmd("qui")
+            HBNBCommand().onecmd("quit")
             HBNBCommand().onecmd("EOF")
             HBNBCommand().onecmd("help")
             HBNBCommand().onecmd("empty line")
