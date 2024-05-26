@@ -91,5 +91,60 @@
         "updated_at": "2024-05-26T16:42:48.981724",
         "test_attr": "test",
         "__class__": "BaseModel"
+    },
+    "Amenity.7ebb47fa-dcf3-47c2-b8c6-ead43a5ba726": {
+        "id": "7ebb47fa-dcf3-47c2-b8c6-ead43a5ba726",
+        "created_at": "2024-05-26T16:46:33.702785",
+        "updated_at": "2024-05-26T16:46:33.702791",
+        "__class__": "Amenity"
+    },
+    "Amenity.5e6e0110-94ca-41f4-a552-ffded04b7609": {
+        "id": "5e6e0110-94ca-41f4-a552-ffded04b7609",
+        "created_at": "2024-05-26T16:46:33.702839",
+        "updated_at": "2024-05-26T16:46:33.702840",
+        "__class__": "Amenity"
+    },
+    "Amenity.9dc565ca-6f98-4f85-883d-690ed9b30c6d": {
+        "id": "9dc565ca-6f98-4f85-883d-690ed9b30c6d",
+        "created_at": "2024-05-26T16:46:33.702973",
+        "updated_at": "2024-05-26T16:46:33.702977",
+        "__class__": "Amenity"
+    },
+    "Amenity.17329c76-1168-4219-b1a2-bd838ec1e69b": {
+        "id": "17329c76-1168-4219-b1a2-bd838ec1e69b",
+        "created_at": "2024-05-26T16:46:33.703025",
+        "updated_at": "2024-05-26T16:46:33.703027",
+        "__class__": "Amenity"
+    },
+    "BaseModel.c261da4e-3487-4efd-a58c-f901d393ada5": {
+        "id": "c261da4e-3487-4efd-a58c-f901d393ada5",
+        "created_at": "2024-05-26T16:46:33.703507",
+        "updated_at": "2024-05-26T16:46:33.703512",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.104fc84f-072a-432f-95a7-db51c6b74ea2": {
+        "id": "104fc84f-072a-432f-95a7-db51c6b74ea2",
+        "created_at": "2024-05-26T16:46:33.703798",
+        "updated_at": "2024-05-26T16:46:33.703802",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.9a02f3cc-1cc0-4c65-bc5c-ae0b507efc0e": {
+        "id": "9a02f3cc-1cc0-4c65-bc5c-ae0b507efc0e",
+        "created_at": "2024-05-26T16:46:33.704061",
+        "updated_at": "2024-05-26T16:46:33.704065",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.acf81d6c-d1e2-42e2-b09f-b292d49c662e": {
+        "id": "acf81d6c-d1e2-42e2-b09f-b292d49c662e",
+        "created_at": "2024-05-26T16:46:33.704414",
+        "updated_at": "2024-05-26T16:46:33.704420",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.e83b6487-b4d3-439c-aa1e-d93652aef4f8": {
+        "id": "e83b6487-b4d3-439c-aa1e-d93652aef4f8",
+        "created_at": "2024-05-26T16:46:33.704705",
+        "updated_at": "2024-05-26T16:46:33.704739",
+        "test_attr": "test",
+        "__class__": "BaseModel"
     }
 }
