@@ -9,6 +9,28 @@
 	position: relative;
 }
 
+.filters div {
+	height: 100%;
+	width: 25%;
+	padding-left: 30px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.filters div:first-child {
+	border-right: 1px solid #ddd;
+}
+
+.filters div h3 {
+	font-weight: 600;
+}
+
+.filters div h4 {
+	font-weight: 400;
+	font-size: 14px;
+}
+
 .filters button {
 	font-size: 18px;
 	background-color: #ff5a5f;
